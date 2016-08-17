@@ -25,21 +25,26 @@ $model = new Post();
             </span>
     </div>
 </form>
-<hr>
+
 <?php if(Yii::$app->user->isGuest):?>
     <?//= AuthorizationWidget::widget() ?>
 <?php endif;?>
 
-<h4><?= Yii::t("app","Recent Posts")?></h4>
-<ul class="list-unstyled">
-    <?php
-    foreach ($model->getRecent() as $m){
+<?php
+if($items = $model->getRecent())
+{
+    echo Html::beginTag('h4');
+    echo Yii::t("app","Recent Posts");
+    echo Html::endTag('h4');
+
+    echo Html::beginTag('ul',['class'=>'list-unstyled']);
+    foreach ($items as $m){
         echo '<li>'.Html::a($m->title,["//blog/default/view","id"=>$m->id,"title"=>$m->title]).'</li>';
     }
-    ?>
-</ul>
-<hr>
-
+    echo Html::endTag('ul');
+    echo Html::tag('hr');
+}
+?>
 <?php
 if($items = $cat->getStructure()){
 
@@ -64,13 +69,19 @@ if($items = $cat->getStructure()){
 }
 ?>
 
-<h4><?= Yii::t("app","Archive")?></h4>
-<ul class="nav nav-pills">
-    <?php
+<?php
+if($items = $model->getArchived()){
+    echo Html::beginTag('h4');
+    echo Yii::t("app","Archive");
+    echo Html::endTag('h4');
+    echo Html::beginTag('ul',['class'=>'list-unstyled']);
     foreach ($model->getArchived() as $m){
         echo '<li>'.Html::a(date('M Y',strtotime($m["month"])),["//blog/default/index","time"=>$m["month"]]).'</li>';
     }
-    ?>
-</ul>
+    echo Html::endTag('ul');
+    echo Html::tag('hr');
+}
+?>
+
 
 

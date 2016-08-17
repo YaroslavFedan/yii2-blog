@@ -107,7 +107,7 @@ class Post extends \yii\db\ActiveRecord
 
             if ($item !== false)
             {
-                return	(isset($list[$item])?$list[$item]:false);
+                return  (isset($list[$item])?$list[$item]:false);
             }
             else
             {
@@ -158,25 +158,27 @@ class Post extends \yii\db\ActiveRecord
 
     public function getRecent($limit = 5)
     {
-        return PostSearch::find()
+        $res = PostSearch::find()
             ->orderBy('id desc')
-            ->where('status=:status',['status'=>1])
+            ->where('status=:status AND isdel = :isdel',['status'=>1, ':isdel'=>0])
             ->limit($limit)
             ->all();
+        return ($res === null ? null : $res);
     }
 
     public function getArchived($limit = 6)
     {
         $res =  $this->db->createCommand("SELECT 
-				substring(concat('',time) from 1 for 7) as month
-				FROM ".$this->tableName()." as p
-				WHERE isdel = 0	
-				GROUP BY month				
-				ORDER BY month desc
-				LIMIT :limit")
+                substring(concat('',time) from 1 for 7) as month
+                FROM ".$this->tableName()." as p
+                WHERE isdel = 0 
+                AND  status = 1
+                GROUP BY month              
+                ORDER BY month desc
+                LIMIT :limit")
             ->bindValues(["limit"=>$limit])->queryAll();
 
-        return ($res == null?[]:$res);
+        return ($res === null ? null : $res);
     }
 
     public $categories;
@@ -219,7 +221,5 @@ class Post extends \yii\db\ActiveRecord
         return $arrayCategories;
 
     }
-
-
 
 }

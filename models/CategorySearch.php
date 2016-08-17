@@ -164,14 +164,14 @@ class CategorySearch extends Category
         ]);
 
         /* uncomment to sort by relations table on respective column
-		$dataProvider->sort->attributes['blogcatposId'] = [
-			'asc' => ['{{%blogcatpos}}.id' => SORT_ASC],
-			'desc' => ['{{%blogcatpos}}.id' => SORT_DESC],
-		];
-		$dataProvider->sort->attributes['categoriesId'] = [
-			'asc' => ['{{%categories}}.id' => SORT_ASC],
-			'desc' => ['{{%categories}}.id' => SORT_DESC],
-		];*/
+        $dataProvider->sort->attributes['blogcatposId'] = [
+            'asc' => ['{{%blogcatpos}}.id' => SORT_ASC],
+            'desc' => ['{{%blogcatpos}}.id' => SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['categoriesId'] = [
+            'asc' => ['{{%categories}}.id' => SORT_ASC],
+            'desc' => ['{{%categories}}.id' => SORT_DESC],
+        ];*/
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -197,7 +197,7 @@ class CategorySearch extends Category
     {
         //запрос к базе данных в $result попадают все записи из таблицы в виде массива
         $result = Category::find()
-            ->where('status = :status',[':status' => self::STATUS_ACTIVE])
+            ->where('status = :status AND isdel = :isdel',[':status' => self::STATUS_ACTIVE, ':isdel'=>0])
             ->asArray()
             ->all();
 
