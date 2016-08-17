@@ -2,7 +2,7 @@
 
 use dongrim\blog\BlogAsset;
 use dongrim\blog\components\grid\ActionColumn;
-use adongrim\blog\models\CategorySearch;
+use dongrim\blog\models\CategorySearch;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 
