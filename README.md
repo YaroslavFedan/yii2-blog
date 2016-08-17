@@ -13,7 +13,7 @@ composer require dongrim/yii2-blog
 База данных миграция
 --------
 ```
-php yii migrate/up --migrationPath=@dongrim/yii2-blog/migrations
+php yii migrate/up --migrationPath=@dongrim/blog/migrations
 ```
 
 
