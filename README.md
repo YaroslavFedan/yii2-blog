@@ -3,7 +3,7 @@
 
 ####Download:
 
-Download from [Github](https://github.com/YaroslavFedan/yii2-multilanguage).
+Download from [Github](https://github.com/YaroslavFedan/yii2-blog).
 
 **Composer**
 ```
